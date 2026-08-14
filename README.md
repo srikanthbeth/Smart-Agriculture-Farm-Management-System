@@ -1,69 +1,78 @@
-Smart Agriculture Farm Management System
+# Smart Agriculture Farm Management System
 
 A FastAPI-based Smart Agriculture Farm Management System for managing farms, fields, crops, harvests, sales, irrigation, and treatments.
 
-Features
+---
 
-User Registration and Login
+# Features
 
-JWT Authentication
+- User Registration and Login
+- JWT Authentication
+- Farm Management
+- Field Management
+- Crop Management
+- Harvest Management
+- Sales Management
+- Irrigation Management
+- Treatment Management
+- Sales Search and Filtering
+- Sales Pagination
+- Sales Sorting
+- Input Validation
+- Error Handling
+- PostgreSQL Database
+- SQLAlchemy ORM
+- Alembic Migrations
+- Pytest Automated Testing
+- Swagger API Documentation
 
-Farm Management
+---
 
-Field Management
+# Technology Stack
 
-Crop Management
+- **Python 3.10+**
+- **FastAPI**
+- **Uvicorn**
+- **SQLAlchemy**
+- **Pydantic**
+- **PostgreSQL**
+- **Alembic**
+- **JWT Authentication**
+- **Passlib / Bcrypt**
+- **Pytest**
+- **HTTPX**
 
-Harvest Management
+---
 
-Sales Management
+# Project Structure
 
-Irrigation Management
-
-Treatment Management
-
-Sales Search and Filtering
-
-Sales Pagination
-
-Sales Sorting
-
-Input Validation
-
-Error Handling
-
-PostgreSQL Database
-
-SQLAlchemy ORM
-
-Alembic Migrations
-
-Pytest Test Suite
-
-Swagger API Documentation
-
-Technology Stack
-
-Python 3.10+
-FastAPI
-Uvicorn
-SQLAlchemy
-Pydantic
-PostgreSQL
-Alembic
-JWT Authentication
-Passlib / Bcrypt
-Pytest
-HTTPX
-
-Project Structure
-
+```text
 Smart-Agriculture-Farm-Management-System/
 │
 ├── routers/
+│   ├── auth.py
+│   ├── farms.py
+│   ├── fields.py
+│   ├── crops.py
+│   ├── harvest.py
+│   ├── sales.py
+│   ├── irrigation.py
+│   └── treatments.py
+│
 ├── services/
+│
 ├── tests/
+│   ├── test_auth.py
+│   ├── test_farms.py
+│   ├── test_fields.py
+│   ├── test_crops.py
+│   ├── test_harvest.py
+│   ├── test_sales.py
+│   ├── test_irrigation.py
+│   └── test_treatments.py
+│
 ├── alembic/
+│
 ├── main.py
 ├── database.py
 ├── models.py
@@ -74,8 +83,6 @@ Smart-Agriculture-Farm-Management-System/
 ├── .env
 ├── .gitignore
 └── README.md
-
-Installation
 
 Clone the repository:
 
@@ -93,10 +100,9 @@ Activate the virtual environment:
 
 .\venv\Scripts\Activate.ps1
 
-Install dependencies:
+Install the required packages:
 
 pip install -r requirements.txt
-
 Database Configuration
 
 The application uses PostgreSQL.
@@ -105,13 +111,13 @@ Database: smart_agriculture
 Host: localhost
 Port: 5432
 
-Configure the database connection in your project configuration.
+Configure the database connection using your environment variables.
 
 Example:
 
-DATABASE_URL = "postgresql://username:password@localhost:5432/smart_agriculture"
+DATABASE_URL=postgresql://username:password@localhost:5432/smart_agriculture
 
-Do not commit database passwords or secret keys to GitHub.
+Do not commit .env files or database passwords to GitHub.
 
 Database Migration
 
@@ -119,7 +125,7 @@ Create a migration:
 
 alembic revision --autogenerate -m "initial migration"
 
-Apply migrations:
+Apply the migration:
 
 alembic upgrade head
 
@@ -130,18 +136,16 @@ alembic current
 View migration history:
 
 alembic history
-
 Run the Application
 
-Start the FastAPI server:
+Start the FastAPI application:
 
 uvicorn main:app --reload
 
 Application URL:
 
 http://127.0.0.1:8000
-
-API Documentation
+Swagger API Documentation
 
 Swagger UI:
 
@@ -150,16 +154,17 @@ http://127.0.0.1:8000/docs
 ReDoc:
 
 http://127.0.0.1:8000/redoc
-
 Authentication
 
-The application uses JWT authentication.
+The application uses JWT-based authentication.
+
+Authentication workflow:
 
 Register
    ↓
 Login
    ↓
-Receive Access Token
+Receive JWT Access Token
    ↓
 Authorize in Swagger
    ↓
@@ -174,9 +179,7 @@ Example:
 {
   "detail": "Not authenticated"
 }
-
 Application Workflow
-
 Register User
       ↓
 Login
@@ -196,12 +199,25 @@ Manage Irrigation
 Manage Treatments
       ↓
 Search / Filter / Sort / Paginate
+Farm Management
+
+The system provides functionality to manage farms.
+
+Farm management includes:
+
+Create Farm
+Get Farm Details
+Update Farm
+Delete Farm
+Farm Validation
+
+Farms act as the main entity for managing agricultural fields and related activities.
 
 Field Management
 
 Fields are associated with farms.
 
-Example:
+Example field:
 
 {
   "field_name": "North Field",
@@ -222,11 +238,18 @@ Example response:
   "status": "Active"
 }
 
+Field management allows farmers to maintain field information such as:
+
+Field Name
+Area
+Soil Type
+Irrigation Type
+Field Status
 Crop Management
 
 Crops are associated with fields.
 
-Example:
+Example crop:
 
 {
   "crop_name": "Rice",
@@ -249,11 +272,18 @@ Example response:
   "status": "Ready for Harvest"
 }
 
+Crop management includes:
+
+Crop Creation
+Crop Retrieval
+Crop Updating
+Crop Status Management
+Crop Validation
 Harvest Management
 
 Harvest records are associated with crops.
 
-Example:
+Example harvest:
 
 {
   "crop_id": 40,
@@ -280,23 +310,30 @@ Example response:
   "storage_location": "Main Warehouse"
 }
 
+Harvest management includes:
+
+Harvest Creation
+Harvest Retrieval
+Quantity Management
+Quality Grade
+Market Price
+Total Revenue Calculation
+Storage Location
+Harvest Validation
 Sales Management
+
+Sales are created from harvested crops.
 
 Sales functionality includes:
 
 Create Sale
-
 Get Sales
-
 Search Sales
-
 Payment Status Filtering
-
 Pagination
-
 Sorting
-
 Authentication
+Input Validation
 
 Example sale:
 
@@ -320,10 +357,9 @@ Example response:
   "total_amount": 2000.0,
   "payment_status": "Paid"
 }
-
 Sales Search
 
-Sales can be searched by payment status.
+Sales can be searched and filtered by payment status.
 
 Example response:
 
@@ -344,10 +380,9 @@ Example response:
     }
   ]
 }
-
 Sales Pagination
 
-Sales support pagination.
+Sales support pagination using page and limit parameters.
 
 Example:
 
@@ -373,33 +408,33 @@ Example response:
     }
   ]
 }
-
 Sales Validation
 
-Invalid page:
+Invalid page values are rejected.
+
+Example:
 
 page=0
 
 Response:
 
 400 Bad Request
-
 {
   "detail": "page must be greater than 0"
 }
 
-Invalid limit:
+Invalid limit values are rejected.
+
+Example:
 
 limit=101
 
 Response:
 
 400 Bad Request
-
 {
   "detail": "limit must be between 1 and 100"
 }
-
 Sales Sorting
 
 Supported sort fields:
@@ -431,10 +466,9 @@ Example:
 {
   "detail": "sort_order must be asc or desc"
 }
-
 Treatment Management
 
-Treatments can be created and retrieved for crops.
+Treatments are associated with crops.
 
 Treatment information includes:
 
@@ -446,7 +480,7 @@ Applied Date
 Cost
 Remarks
 
-Example fertilizer:
+Example fertilizer treatment:
 
 {
   "crop_id": 50,
@@ -458,7 +492,7 @@ Example fertilizer:
   "remarks": "Balanced fertilizer"
 }
 
-Example pesticide:
+Example pesticide treatment:
 
 {
   "crop_id": 51,
@@ -469,7 +503,6 @@ Example pesticide:
   "cost": 800.0,
   "remarks": "Organic pest control"
 }
-
 Treatment Validation
 
 Treatment quantity must be greater than zero.
@@ -480,28 +513,21 @@ Treatment cost must also be greater than zero.
 
 cost > 0
 
-Invalid quantity:
-
-{
-  "quantity": 0
-}
-
-Response:
+Zero quantity returns:
 
 422 Unprocessable Entity
 
-Negative quantity is also rejected.
-
-quantity = -10
-
-Invalid cost:
-
-cost = 0
-
-Response:
+Negative quantity returns:
 
 422 Unprocessable Entity
 
+Zero cost returns:
+
+422 Unprocessable Entity
+
+Negative cost returns:
+
+422 Unprocessable Entity
 Crop Treatment History
 
 The system provides treatment history for individual crops.
@@ -534,11 +560,9 @@ Example response:
 If the crop does not exist:
 
 404 Not Found
-
 {
   "detail": "Crop not found"
 }
-
 Error Handling
 
 The application uses standard HTTP status codes:
@@ -551,6 +575,8 @@ The application uses standard HTTP status codes:
 404 Not Found
 409 Conflict
 422 Unprocessable Entity
+
+The API validates invalid input and returns appropriate error responses.
 
 Testing
 
@@ -567,23 +593,22 @@ pytest tests/test_sales.py -v
 Run treatment tests:
 
 pytest tests/test_treatments.py -v
-
 Test Results
 
-All tests passed successfully.
+All automated tests passed successfully.
 
 123 passed, 2 warnings in 77.88s
 
 Test summary:
 
-Total Tests: 123
-Passed: 123
-Failed: 0
-Warnings: 2
-
+Total Tests : 123
+Passed      : 123
+Failed      : 0
+Warnings    : 2
+Status      : PASSED
 Test Coverage
 
-The test suite covers:
+The automated test suite covers:
 
 Authentication
 Farm Management
@@ -594,7 +619,7 @@ Sales Management
 Irrigation Management
 Treatment Management
 
-Sales tests cover:
+Sales tests include:
 
 Create Sale
 Get Sales
@@ -609,7 +634,7 @@ Ascending Sort
 Unauthorized Get Sales
 Unauthorized Create Sale
 
-Treatment tests cover:
+Treatment tests include:
 
 Create Treatment
 Get Treatments
@@ -623,38 +648,30 @@ Fertilizer Treatment
 Pesticide Treatment
 Unauthorized Get Treatments
 Unauthorized Create Treatment
+Security
 
-Warnings
+The application uses JWT authentication for protected APIs.
 
-The test suite completed with 2 warnings.
+Sensitive information should be stored in environment variables.
 
-123 passed, 2 warnings
-
-The warnings do not affect the test results.
-
-Database Security
-
-Do not commit credentials to GitHub.
-
-Recommended .gitignore:
+The following files should not be committed to GitHub:
 
 .env
 venv/
 __pycache__/
 *.pyc
 .pytest_cache/
-
 Useful Commands
 
 Create virtual environment:
 
 python -m venv venv
 
-Activate environment:
+Activate virtual environment:
 
 .\venv\Scripts\Activate.ps1
 
-Install packages:
+Install dependencies:
 
 pip install -r requirements.txt
 
@@ -666,58 +683,52 @@ Apply migration:
 
 alembic upgrade head
 
-Run application:
+Start application:
 
 uvicorn main:app --reload
 
-Run tests:
+Run all tests:
 
 pytest -v
+API Access
 
-Project Status
-
-Project: Smart Agriculture Farm Management System
-
-Framework: FastAPI
-Database: PostgreSQL
-ORM: SQLAlchemy
-Migration: Alembic
-Authentication: JWT
-Testing: Pytest
-
-Total Tests: 123
-Passed: 123
-Failed: 0
-Warnings: 2
-
-Status: COMPLETED
-
-Quick Start
-
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-alembic upgrade head
-uvicorn main:app --reload
-
-Application URL:
+Application:
 
 http://127.0.0.1:8000
 
-Swagger URL:
+Swagger:
 
 http://127.0.0.1:8000/docs
 
-Run tests:
+ReDoc:
 
-pytest -v
-
-Expected result:
-
-123 passed, 2 warnings
-
-All tests are passing successfully.
+http://127.0.0.1:8000/redoc
+Completed
+✅ Authentication
+✅ JWT Authorization
+✅ Farm Management
+✅ Field Management
+✅ Crop Management
+✅ Harvest Management
+✅ Sales Management
+✅ Sales Search and Filtering
+✅ Sales Pagination
+✅ Sales Sorting
+✅ Irrigation Management
+✅ Treatment Management
+✅ Input Validation
+✅ Error Handling
+✅ PostgreSQL Database
+✅ SQLAlchemy ORM
+✅ Alembic Migrations
+✅ Swagger API Documentation
+✅ Automated Testing
+✅ 123/123 Tests Passing
 
 Author
 
 Srikanth Bethamcharla
+
+Smart Agriculture Farm Management System
+
+
